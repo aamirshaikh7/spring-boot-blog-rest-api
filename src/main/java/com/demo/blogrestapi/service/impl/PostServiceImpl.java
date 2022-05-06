@@ -5,6 +5,9 @@ import com.demo.blogrestapi.exception.ResourceNotFoundException;
 import com.demo.blogrestapi.model.Post;
 import com.demo.blogrestapi.repository.PostRepository;
 import com.demo.blogrestapi.service.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +42,11 @@ public class PostServiceImpl implements PostService {
         return postDto;
     }
 
+    private Post findPostById (long id) {
+        return postRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+    }
+
     @Override
     public PostDto createPost(PostDto postDto) {
         Post post = convertToEntity(postDto);
@@ -49,26 +57,28 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPosts() {
-        List<Post> posts = postRepository.findAll();
+    public List<PostDto> getAllPosts(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
 
-        return posts.stream().
+        Page<Post> posts = postRepository.findAll(pageable);
+
+        List<Post> postList = posts.getContent();
+
+        return postList.stream().
                 map(post -> convertToDto(post)).
                 collect(Collectors.toList());
     }
 
     @Override
     public PostDto getPostById(long id) {
-        Post post = postRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+        Post post = findPostById(id);
 
         return convertToDto(post);
     }
 
     @Override
     public PostDto updatePost(PostDto postDto, long id) {
-        Post post = postRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+        Post post = findPostById(id);
 
         post.setTitle(postDto.getTitle());
         post.setDescription(postDto.getDescription());
@@ -81,8 +91,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public void deletePostById(long id) {
-        Post post = postRepository.findById(id).
-                orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+        Post post = findPostById(id);
 
         postRepository.delete(post);
     }
