@@ -1,6 +1,7 @@
 package com.demo.blogrestapi.service.impl;
 
 import com.demo.blogrestapi.dto.PostDto;
+import com.demo.blogrestapi.dto.PostResponse;
 import com.demo.blogrestapi.exception.ResourceNotFoundException;
 import com.demo.blogrestapi.model.Post;
 import com.demo.blogrestapi.repository.PostRepository;
@@ -57,16 +58,27 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostDto> getAllPosts(int pageNo, int pageSize) {
+    public PostResponse getAllPosts(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
 
         Page<Post> posts = postRepository.findAll(pageable);
 
         List<Post> postList = posts.getContent();
 
-        return postList.stream().
+        List<PostDto> content = postList.stream().
                 map(post -> convertToDto(post)).
                 collect(Collectors.toList());
+
+        PostResponse postResponse = new PostResponse();
+
+        postResponse.setContent(content);
+        postResponse.setPageNo(posts.getNumber());
+        postResponse.setPageSize(posts.getSize());
+        postResponse.setTotalPages(posts.getTotalPages());
+        postResponse.setTotalElements(posts.getTotalElements());
+        postResponse.setLast(posts.isLast());
+
+        return postResponse;
     }
 
     @Override
