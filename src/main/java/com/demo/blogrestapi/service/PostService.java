@@ -3,8 +3,6 @@ package com.demo.blogrestapi.service;
 import com.demo.blogrestapi.dto.PostDto;
 import com.demo.blogrestapi.dto.PostResponse;
 
-import java.util.List;
-
 public interface PostService {
     PostDto createPost(PostDto postDto);
 
