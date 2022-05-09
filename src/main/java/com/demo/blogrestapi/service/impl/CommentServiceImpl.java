@@ -1,6 +1,7 @@
 package com.demo.blogrestapi.service.impl;
 
 import com.demo.blogrestapi.dto.CommentDto;
+import com.demo.blogrestapi.dto.PostDto;
 import com.demo.blogrestapi.exception.ResourceNotFoundException;
 import com.demo.blogrestapi.model.Comment;
 import com.demo.blogrestapi.model.Post;
@@ -8,6 +9,9 @@ import com.demo.blogrestapi.repository.CommentRepository;
 import com.demo.blogrestapi.repository.PostRepository;
 import com.demo.blogrestapi.service.CommentService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -56,5 +60,14 @@ public class CommentServiceImpl implements CommentService {
         Comment savedComment = commentRepository.save(comment);
 
         return convertToDto(savedComment);
+    }
+
+    @Override
+    public List<CommentDto> getCommentsByPostId(long postId) {
+        List<Comment> comments = commentRepository.findByPostId(postId);
+
+        return comments.stream().
+                map(comment -> convertToDto(comment)).
+                collect(Collectors.toList());
     }
 }
