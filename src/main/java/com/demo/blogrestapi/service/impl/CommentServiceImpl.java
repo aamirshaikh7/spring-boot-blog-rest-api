@@ -112,4 +112,17 @@ public class CommentServiceImpl implements CommentService {
 
         return convertToDto(updatedComment);
     }
+
+    @Override
+    public void deleteCommentById(long postId, long commentId) {
+        Post post = findPostById(postId);
+
+        Comment comment = findCommentById(commentId);
+
+        if (! isCommentBelongsToPost(comment, post)) {
+            throw new BlogException(HttpStatus.BAD_REQUEST, "Comment does belong to post");
+        }
+
+        commentRepository.delete(comment);
+    }
 }
