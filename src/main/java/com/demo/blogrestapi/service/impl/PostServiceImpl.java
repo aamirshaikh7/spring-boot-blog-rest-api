@@ -6,6 +6,7 @@ import com.demo.blogrestapi.exception.ResourceNotFoundException;
 import com.demo.blogrestapi.model.Post;
 import com.demo.blogrestapi.repository.PostRepository;
 import com.demo.blogrestapi.service.PostService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,29 +20,19 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
 
-    public PostServiceImpl(PostRepository postRepository) {
+    private ModelMapper mapper;
+
+    public PostServiceImpl(PostRepository postRepository, ModelMapper mapper) {
         this.postRepository = postRepository;
+        this.mapper = mapper;
     }
 
     private Post convertToEntity (PostDto postDto) {
-        Post post = new Post();
-
-        post.setTitle(postDto.getTitle());
-        post.setDescription(postDto.getDescription());
-        post.setContent(postDto.getContent());
-
-        return post;
+        return mapper.map(postDto, Post.class);
     }
 
     private PostDto convertToDto (Post post) {
-        PostDto postDto = new PostDto();
-
-        postDto.setId(post.getId());
-        postDto.setTitle(post.getTitle());
-        postDto.setDescription(post.getDescription());
-        postDto.setContent(post.getContent());
-
-        return postDto;
+        return mapper.map(post, PostDto.class);
     }
 
     private Post findPostById (long id) {
