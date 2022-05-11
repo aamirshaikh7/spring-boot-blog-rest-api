@@ -11,11 +11,11 @@ public class PostDto {
     private long id;
 
     @NotEmpty
-    @Size(min = 2, message = "Title must have at least 2 characters")
+    @Size(min = 2)
     private String title;
 
     @NotEmpty
-    @Size(min = 5, message = "Description must have at least 5 characters")
+    @Size(min = 5)
     private  String description;
 
     @NotEmpty
