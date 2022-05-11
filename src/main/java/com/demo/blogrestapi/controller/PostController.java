@@ -1,14 +1,12 @@
 package com.demo.blogrestapi.controller;
 
-import com.demo.blogrestapi.dto.PostDto;
-import com.demo.blogrestapi.dto.PostResponse;
+import com.demo.blogrestapi.payload.PostDto;
+import com.demo.blogrestapi.payload.PostResponse;
 import com.demo.blogrestapi.service.PostService;
 import com.demo.blogrestapi.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/posts")

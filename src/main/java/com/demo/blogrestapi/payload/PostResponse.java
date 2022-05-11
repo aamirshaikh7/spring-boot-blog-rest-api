@@ -1,4 +1,4 @@
-package com.demo.blogrestapi.dto;
+package com.demo.blogrestapi.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

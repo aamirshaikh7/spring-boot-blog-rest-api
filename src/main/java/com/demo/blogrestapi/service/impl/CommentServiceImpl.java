@@ -1,6 +1,6 @@
 package com.demo.blogrestapi.service.impl;
 
-import com.demo.blogrestapi.dto.CommentDto;
+import com.demo.blogrestapi.payload.CommentDto;
 import com.demo.blogrestapi.exception.BlogException;
 import com.demo.blogrestapi.exception.ResourceNotFoundException;
 import com.demo.blogrestapi.model.Comment;

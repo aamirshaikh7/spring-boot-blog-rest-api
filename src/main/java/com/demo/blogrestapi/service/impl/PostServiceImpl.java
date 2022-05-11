@@ -1,7 +1,7 @@
 package com.demo.blogrestapi.service.impl;
 
-import com.demo.blogrestapi.dto.PostDto;
-import com.demo.blogrestapi.dto.PostResponse;
+import com.demo.blogrestapi.payload.PostDto;
+import com.demo.blogrestapi.payload.PostResponse;
 import com.demo.blogrestapi.exception.ResourceNotFoundException;
 import com.demo.blogrestapi.model.Post;
 import com.demo.blogrestapi.repository.PostRepository;

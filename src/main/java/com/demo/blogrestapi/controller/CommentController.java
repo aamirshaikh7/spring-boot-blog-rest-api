@@ -1,6 +1,6 @@
 package com.demo.blogrestapi.controller;
 
-import com.demo.blogrestapi.dto.CommentDto;
+import com.demo.blogrestapi.payload.CommentDto;
 import com.demo.blogrestapi.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

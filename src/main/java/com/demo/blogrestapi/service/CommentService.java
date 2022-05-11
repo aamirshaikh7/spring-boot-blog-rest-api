@@ -1,7 +1,6 @@
 package com.demo.blogrestapi.service;
 
-import com.demo.blogrestapi.dto.CommentDto;
-import com.demo.blogrestapi.dto.PostDto;
+import com.demo.blogrestapi.payload.CommentDto;
 
 import java.util.List;
 
