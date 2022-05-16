@@ -18,7 +18,7 @@ public class PostControllerV2 {
         this.postService = postService;
     }
 
-    @GetMapping(value = "{id}", params = "version=2")
+    @GetMapping(value = "{id}", headers = "X-API-VERSION=2")
     public ResponseEntity<PostDtoV2> getPostByIdV2 (@PathVariable("id") long id) {
         PostDto postDto = postService.getPostById(id);
 

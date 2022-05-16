@@ -36,7 +36,7 @@ public class PostController {
         return postService.getAllPosts(pageNo, pageSize, sortBy, dir);
     }
 
-    @GetMapping(value = "{id}", params = "version=1")
+    @GetMapping(value = "{id}", headers = "X-API-VERSION=1")
     public ResponseEntity<PostDto> getPostById (@PathVariable("id") long id) {
         return ResponseEntity.ok(postService.getPostById(id));
     }
