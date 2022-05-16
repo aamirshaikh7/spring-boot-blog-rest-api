@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/v1/posts")
+@RequestMapping("api/posts")
 public class PostController {
     private PostService postService;
 
@@ -36,7 +36,7 @@ public class PostController {
         return postService.getAllPosts(pageNo, pageSize, sortBy, dir);
     }
 
-    @GetMapping("{id}")
+    @GetMapping(value = "{id}", params = "version=1")
     public ResponseEntity<PostDto> getPostById (@PathVariable("id") long id) {
         return ResponseEntity.ok(postService.getPostById(id));
     }
