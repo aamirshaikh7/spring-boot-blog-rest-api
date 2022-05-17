@@ -8,6 +8,8 @@ import com.demo.blogrestapi.payload.SignupDto;
 import com.demo.blogrestapi.repository.RoleRepository;
 import com.demo.blogrestapi.repository.UserRepository;
 import com.demo.blogrestapi.security.JwtTokenProvider;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 
+@Api("AuthController exposes signin and signup Rest APIs")
 @RestController
 @RequestMapping("api/v1/auth")
 public class AuthController {
@@ -41,6 +44,7 @@ public class AuthController {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
+    @ApiOperation("Rest API to authenticate and signin user")
     @PostMapping("signin")
     public ResponseEntity<JwtAuthDto> signin (@RequestBody SigninDto signinDto) {
         Authentication authentication = authenticationManager.
@@ -55,6 +59,7 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthDto(token));
     }
 
+    @ApiOperation("Rest API to register user")
     @PostMapping("signup")
     public ResponseEntity<?> signup (@RequestBody SignupDto signupDto) {
         if (userRepository.existsByUsername(signupDto.getUsername())) {
