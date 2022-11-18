@@ -3,9 +3,8 @@ package com.demo.blogrestapi.config;
 import com.demo.blogrestapi.security.CustomUserDetailsService;
 import com.demo.blogrestapi.security.JwtAuthenticationEntryPoint;
 import com.demo.blogrestapi.security.JwtAuthenticationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -18,15 +17,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configurable
+@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private JwtAuthenticationEntryPoint authenticationEntryPoint;
+    private final JwtAuthenticationEntryPoint authenticationEntryPoint;
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
+
+    public SecurityConfig(JwtAuthenticationEntryPoint authenticationEntryPoint, CustomUserDetailsService userDetailsService) {
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter () {

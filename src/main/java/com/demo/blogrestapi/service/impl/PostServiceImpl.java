@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class PostServiceImpl implements PostService {
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
 
     public PostServiceImpl(PostRepository postRepository, ModelMapper mapper) {
         this.postRepository = postRepository;
@@ -62,7 +62,7 @@ public class PostServiceImpl implements PostService {
         List<Post> postList = posts.getContent();
 
         List<PostDto> content = postList.stream().
-                map(post -> convertToDto(post)).
+                map(this::convertToDto).
                 collect(Collectors.toList());
 
         PostResponse postResponse = new PostResponse();
