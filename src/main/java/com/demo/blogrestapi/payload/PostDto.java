@@ -22,7 +22,7 @@ public class PostDto {
     @ApiModelProperty("post description")
     @NotEmpty
     @Size(min = 5)
-    private  String description;
+    private String description;
 
     @ApiModelProperty("post content")
     @NotEmpty

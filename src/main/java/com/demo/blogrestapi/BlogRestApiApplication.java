@@ -10,20 +10,21 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BlogRestApiApplication implements CommandLineRunner {
+    private final RoleRepository roleRepository;
+
     public BlogRestApiApplication(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
-    }
-
-    @Bean
-    public ModelMapper modelMapper () {
-        return new ModelMapper();
     }
 
     public static void main(String[] args) {
         SpringApplication.run(BlogRestApiApplication.class, args);
     }
 
-    private final RoleRepository roleRepository;
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
     @Override
     public void run(String... args) {
         Role admin = new Role();

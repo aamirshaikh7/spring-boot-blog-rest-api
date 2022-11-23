@@ -16,7 +16,7 @@ public class JwtTokenProvider {
     @Value("${app.jwt-expiration-milliseconds}")
     private Integer jwtExpirationInMs;
 
-    public String generateToken (Authentication authentication) {
+    public String generateToken(Authentication authentication) {
         String username = authentication.getName();
         Date currentDate = new Date();
         Date expiryDate = new Date(currentDate.getTime() + jwtExpirationInMs);
@@ -29,7 +29,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String getUsernameFromJwt (String token) {
+    public String getUsernameFromJwt(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
@@ -38,12 +38,12 @@ public class JwtTokenProvider {
         return claims.getSubject();
     }
 
-    public Boolean validateToken (String token) {
+    public Boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
 
             return true;
-        } catch (SignatureException exception){
+        } catch (SignatureException exception) {
             throw new BlogException("Invalid JWT signature");
         } catch (MalformedJwtException exception) {
             throw new BlogException("Invalid JWT token");

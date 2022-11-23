@@ -16,12 +16,12 @@ import java.util.List;
 public class SwaggerConfig {
     public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    private ApiKey apiKey () {
+    private ApiKey apiKey() {
         return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
     }
 
-    private ApiInfo apiInfo () {
-        return  new ApiInfo(
+    private ApiInfo apiInfo() {
+        return new ApiInfo(
                 "Spring Boot Blog Rest API",
                 "Blog Rest API Documentation",
                 "1",
@@ -34,7 +34,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public Docket api () {
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .securityContexts(Collections.singletonList(securityContext()))
@@ -45,11 +45,11 @@ public class SwaggerConfig {
                 .build();
     }
 
-    private SecurityContext securityContext () {
+    private SecurityContext securityContext() {
         return SecurityContext.builder().securityReferences(securityReferenceList()).build();
     }
 
-    private List<SecurityReference> securityReferenceList () {
+    private List<SecurityReference> securityReferenceList() {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
 
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];

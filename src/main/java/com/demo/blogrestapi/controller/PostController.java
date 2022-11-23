@@ -26,13 +26,13 @@ public class PostController {
     @ApiOperation("Create Post Rest API")
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<PostDto> createPost (@Valid @RequestBody PostDto postDto) {
+    public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto) {
         return new ResponseEntity<>(postService.createPost(postDto), HttpStatus.CREATED);
     }
 
     @ApiOperation("Get All Posts Post Rest API")
     @GetMapping
-    public PostResponse getAllPosts (
+    public PostResponse getAllPosts(
             @RequestParam(value = "pageNo", defaultValue = Constants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
             @RequestParam(value = "pageSize", defaultValue = Constants.DEFAULT_PAGE_SIZE, required = false) int pageSize,
             @RequestParam(value = "sortBy", defaultValue = Constants.DEFAULT_SORT_BY, required = false) String sortBy,
@@ -43,21 +43,21 @@ public class PostController {
 
     @ApiOperation("Get Post By Id Rest API")
     @GetMapping(value = "{id}")
-    public ResponseEntity<PostDto> getPostById (@PathVariable("id") long id) {
+    public ResponseEntity<PostDto> getPostById(@PathVariable("id") long id) {
         return ResponseEntity.ok(postService.getPostById(id));
     }
 
     @ApiOperation("Update Post Rest API")
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("{id}")
-    public ResponseEntity<PostDto> updatePost (@Valid @RequestBody PostDto postDto, @PathVariable("id") long id) {
+    public ResponseEntity<PostDto> updatePost(@Valid @RequestBody PostDto postDto, @PathVariable("id") long id) {
         return new ResponseEntity<>(postService.updatePost(postDto, id), HttpStatus.OK);
     }
 
     @ApiOperation("Delete Post Rest API")
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("{id}")
-    public ResponseEntity<String> deletePostById (@PathVariable("id") long id) {
+    public ResponseEntity<String> deletePostById(@PathVariable("id") long id) {
         postService.deletePostById(id);
 
         return new ResponseEntity<>("Post with id : " + id + " Deleted", HttpStatus.OK);

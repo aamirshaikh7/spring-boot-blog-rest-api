@@ -48,7 +48,7 @@ public class AuthController {
 
     @ApiOperation("Rest API to authenticate and signin user")
     @PostMapping("signin")
-    public ResponseEntity<JwtAuthDto> signin (@RequestBody SigninDto signinDto) {
+    public ResponseEntity<JwtAuthDto> signin(@RequestBody SigninDto signinDto) {
         Authentication authentication = authenticationManager.
                 authenticate(new UsernamePasswordAuthenticationToken(signinDto.getUsernameOrEmail(), signinDto.getPassword()));
 
@@ -63,7 +63,7 @@ public class AuthController {
 
     @ApiOperation("Rest API to register user")
     @PostMapping("signup")
-    public ResponseEntity<?> signup (@RequestBody SignupDto signupDto) {
+    public ResponseEntity<?> signup(@RequestBody SignupDto signupDto) {
         if (userRepository.existsByUsername(signupDto.getUsername())) {
             return new ResponseEntity<>("Username is already taken", HttpStatus.BAD_REQUEST);
         }

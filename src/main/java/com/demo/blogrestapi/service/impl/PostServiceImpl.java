@@ -1,9 +1,9 @@
 package com.demo.blogrestapi.service.impl;
 
-import com.demo.blogrestapi.payload.PostDto;
-import com.demo.blogrestapi.payload.PostResponse;
 import com.demo.blogrestapi.exception.ResourceNotFoundException;
 import com.demo.blogrestapi.model.Post;
+import com.demo.blogrestapi.payload.PostDto;
+import com.demo.blogrestapi.payload.PostResponse;
 import com.demo.blogrestapi.repository.PostRepository;
 import com.demo.blogrestapi.service.PostService;
 import org.modelmapper.ModelMapper;
@@ -27,15 +27,15 @@ public class PostServiceImpl implements PostService {
         this.mapper = mapper;
     }
 
-    private Post convertToEntity (PostDto postDto) {
+    private Post convertToEntity(PostDto postDto) {
         return mapper.map(postDto, Post.class);
     }
 
-    private PostDto convertToDto (Post post) {
+    private PostDto convertToDto(Post post) {
         return mapper.map(post, PostDto.class);
     }
 
-    private Post findPostById (long id) {
+    private Post findPostById(long id) {
         return postRepository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
     }
