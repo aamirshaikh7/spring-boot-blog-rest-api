@@ -47,7 +47,7 @@ This REST API provides the following endpoints:
 
 3. ### Create a Post
 
-    This endpoint is used to create new posts.
+    This endpoint is used to create new post.
     
     `POST /api/v1/posts`
 
